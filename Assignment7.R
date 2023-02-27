@@ -74,8 +74,11 @@ setMethod("show",
             cat("GPA:", object@gpa, "\n")
           }
          )
+setGeneric("grade", valueClass = "character", function(obj){
+  standardGeneric("grade")
+})
 setMethod("grade",
-          "student",
+          signature("student"),
           function(obj){
             if (obj@gpa > 3.5){
               "A"
@@ -97,3 +100,6 @@ s4
 slot(s4, "name") <- "Bill"
 s4
 grade(s4)
+
+showMethods("grade")
+ftype("grade")
