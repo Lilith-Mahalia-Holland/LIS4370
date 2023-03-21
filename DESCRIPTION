@@ -1,0 +1,13 @@
+Package: LIS4317.Module10
+Title: Bitwise grouping
+Version: 0.0.0.9000
+Authors@R: 
+    person("Lilith", "Holland", , "Lilith.Holland@example.com", role = "cre",
+           comment = c(ORCID = ""))
+Description: Compairs two composite elements in a sorted bitwise list to test if they share composite elements.
+Depends: R (>= 3.1.2)
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+LazyData: true
