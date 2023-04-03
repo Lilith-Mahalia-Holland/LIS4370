@@ -1,0 +1,82 @@
+---
+title: "Assignment12"
+author: "Lilith Holland"
+date: '2023-04-02'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data processing and cleaning
+
+## Loading data
+
+For this section I simply wanted to load the data and print the head values.
+
+```{r}
+data <- read.csv("./Customers.csv")
+head(data)
+```
+
+## Data cleaning
+
+After loading the data it became apparent that there is a Null value in the professions column,
+and that the column names need to be converted. I am aware there is a built in method
+for covering the names however I found it quicker to just print them out than
+to look up that method.
+
+```{r}
+
+data['Profession'][data['Profession'] == ""] <- "Misc"
+data[c("Gender", "Profession")] <- lapply(data[c("Gender", "Profession")], factor)
+names(data) <- c("CustomerID",
+                 "Gender",
+                 "Age",
+                 "Annual_Income",
+                 "Spending_Score",
+                 "Profession",
+                 "Work_Experience",
+                 "Family_Size")
+head(data)
+```
+
+# Plots
+
+## Scatter plot matrix
+
+As a basic exploratory step I decided to create a scatter plot matrix to see how
+the different variables interact. It is quickly made apparent that there is no real
+pattern to the data that is easily seen.
+
+```{r echo=FALSE}
+plot(data[, -which(names(data) %in% c("CustomerID", "Gender",
+                                      "Profession", "Family_Size",
+                                      "Work_Experience"))])
+```
+## Scatter plot with fitted line
+
+Following the scatter plot matrix the only real interesting data is the annual income
+vs. age as it can provide some potential insight. After reviewing the data it is
+quickly made apparent that there is no real relationship between the two variables.
+
+```{r echo=FALSE}
+plot(data$Age, data$Annual_Income,
+     main="Annual Income vs. Age",
+     xlab="Annual Income (USD)",
+     ylab="Age (years)")
+abline(lm(Annual_Income ~ Age, data=data))
+```
+## Histogram
+
+The following plot was produced to see if the data was evenly sampled of if there is
+a bias towards one group. It is made apparent that people with low work experience
+make up a significant portion of the data which could account for why there is
+so little variability in annual income.
+
+```{r echo=FALSE}
+hist(data$Work_Experience,
+     main="Work Experience",
+     xlab="Years of Experience")
+```
