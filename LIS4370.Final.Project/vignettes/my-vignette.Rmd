@@ -1,0 +1,53 @@
+---
+title: "LIS4370.Final.Project Viterbi application"
+author: "Lilith Holland"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  #collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(LIS4370.Final.Project)
+```
+
+The two following sections are simply demonstrating how the dictionary and text can look, for use with the viterbi algorithm.
+```{r}
+dictionary <- AlphaWords
+head(dictionary)
+sample_text <- SampleText
+sample_text
+```
+
+The first step to working with the viterbi algorithm is to process the dictionaries as certain characters can cause issues with the algorithm in its base form.
+```{r}
+dictionary <- populate_dictionary(dictionary)
+head(dictionary)
+```
+
+Following the dictionary processing the dictionary needs to be trained for use with the viterbi algorithm which is done as follows. This will create a hashed dictionary which is a simple data structure that has a key value pair similar in a sense to a list however much faster and more data efficient. 
+```{r}
+viterbi_list <- train_viterbi(sample_text, dictionary)
+hashed_dictionary <- viterbi_list[[1]]
+total <- viterbi_list[[2]]
+max_word_length <- viterbi_list[[3]]
+```
+
+This can be mapped to a dictionary and run on every word if desired, however, the text is small, so I’ll just use the words function to separate the text. Following the trained dictionary each word of the sample text can be run through the join_words() function and corrected.
+
+```{r}
+for(word in words(sample_text)){
+  processed_text <- join_words(word, hashed_dictionary, total, max_word_length)
+  }
+processed_text
+```
+Now it’s important to note that not much has changed in this sample dataset and this makes complete sense. While it is true that the viterbi algorithm will correct texts that are fussed or misspelt it generally requires quite a large training dataset to be used properly. In this case the dataset is only a few sentences and thus it’ll have little to no coercion over how words should be spelt. Ultimately the algorithm is just a probability comparison and if the typo shows up just as much as the correct spelling or if the typo is actually just  an uncommon spelling of a word, then the algorithm will simply choose which shows up first.
+

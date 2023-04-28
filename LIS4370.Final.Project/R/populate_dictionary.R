@@ -7,9 +7,11 @@
 #' @export
 
 populate_dictionary <- function(dictionary, remove_singles=FALSE){
+  # Apply tolower over the entire dictionary
   dictionary <- sapply(dictionary, tolower)
+  # Remove all single letter words
   if(remove_singles){
-    dictionary <- dictionary[nchar(dictionary) > 0]
+    dictionary <- dictionary[nchar(dictionary) > 1]
   }
   return(dictionary)
 }

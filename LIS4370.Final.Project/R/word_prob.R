@@ -8,5 +8,6 @@
 #' @export
 
 word_prob <- function(word, dictionary_hash, total){
+  # Takes the number of times the word showed up and divides it by the total number of words.
   return(values(dictionary_hash[word])/total)
 }
