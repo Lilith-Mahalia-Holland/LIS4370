@@ -1,0 +1,17 @@
+Package: LIS4370.Final.Project
+Title: Viterbi NLP Preprocessing
+Version: 0.0.1.0
+Authors@R: 
+    person("Lilith", "Holland", , "Lilith.Holland@example.com", role = "cre",
+           comment = c(ORCID = ""))
+Description: This package is currently a viterbi preprocessing tool that is
+    intended to primarly clean data for NLP word. The tool corrects misspelt and
+    fussed words in corrupted text by training a dictionary and comparing word
+    probability to said dictionary. The algorithm is not perfect but can be
+    quite powerful when used in the right circumstances.
+Depends: R (>= 4.3), hash, stats
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+LazyData: True
